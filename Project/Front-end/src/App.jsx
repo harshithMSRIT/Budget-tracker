@@ -1,25 +1,22 @@
 import { useState,useEffect } from 'react'
 import abi from "./contractjson/Budget.json"
 import {ethers} from "ethers"
-import Memos from './components/Memos'
-import Buy from './components/Buy'
-import chai from "./chai.png";
+import Send from './Components/Send'; 
+import { Dept } from './Components/Dept';
+import logo from './logo.jpg'
 import './App.css'
 
 function App() {
   const [state,setState]=useState({
-    provider:null,
-    signer:null,
     contract:null
   })
   const [account,setAccount]=useState('Not connected');
   useEffect(()=>{
     const template=async()=>{
    
-      const contractAddres="";
+      const contractAddres="0x5FbDB2315678afecb367f032d93F642f64180aa3";
       const contractABI=abi.abi;
       //Metamask part
-      //1. In order do transactions on goerli testnet
       //2. Metmask consists of infura api which actually help in connectig to the blockhain
       try{
 
@@ -52,14 +49,12 @@ function App() {
   },[])
   return (
     <div >
-    <img src={chai} className="img-fluid" alt=".." width="100%" />
+    <img src={logo} className="img-fluid" alt=".." width="100%" />
     <p style={{ marginTop: "10px", marginLeft: "5px" }}>
       <small>Connected Account - {account}</small>
     </p>
-   
-      <Buy state={state} />
-      <Memos state={state} />
-   
+     <Dept state={state}/>
+      <Send state={state}/>
   </div>
   )
 }
